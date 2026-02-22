@@ -15,44 +15,27 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             VStack {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.pink)
-                        .rotationEffect(Angle(degrees: 15))
-                    
-                    VStack {
-                        Text("TO DO List")
-                            .foregroundColor(.white)
-                            .font(.system(size: 40))
-                            .bold()
-                        Text("Get things done")
-                            .foregroundColor(.white)
-                            .font(.system(size: 20))
-                    }
-                    .padding(.top, 30)
-                }
-                .frame(width: UIScreen.main.bounds.width * 3, height: 300)
+                HeaderView(title: "TO DO List",
+                           subTitle: "Get things done",
+                           rotationAngle: 15,
+                           color: .pink)
                 .offset(x: 0, y: -100)
                 
                 Form {
                     TextField("Email address", text:$email)
                         .textFieldStyle(.roundedBorder)
+                        .autocapitalization(.none)
+                        .autocorrectionDisabled()
+                    
                     SecureField("Password", text:$password)
                         .textFieldStyle(.roundedBorder)
                     
-                    Button {
-                        
-                    } label: {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.blue)
-                            Text("Log In")
-                                .foregroundColor(.white)
-                                .bold()
-                        }
-                        .frame(height: 40)
+                    TLButton(title: "Log In", color: .blue) {
+                        // Action
                     }
+                    .padding()
                 }
+                .offset(y: -30)
                 
                 VStack {
                     Text("New around here")
