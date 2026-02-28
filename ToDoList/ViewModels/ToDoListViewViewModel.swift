@@ -10,6 +10,8 @@ import Combine
 
 class ToDoListViewViewModel: ObservableObject {
     
+    @Published var shouldShowNewItemView: Bool = false
+    
     init () {
         
     }
