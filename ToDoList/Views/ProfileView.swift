@@ -14,9 +14,50 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Profile View")
+                if let user = viewModel.user {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(.blue)
+                        .frame(width: 125, height: 125)
+                        .padding()
+                    
+                    HStack {
+                        Text("Name: ")
+                            .bold()
+                        Text(user.username)
+                    }
+                    
+                    HStack {
+                        Text("Email: ")
+                            .bold()
+                        Text(user.email)
+                    }
+
+                    
+                    HStack {
+                        Text("Member Since: ")
+                            .bold()
+                        Text(
+                            Date(timeIntervalSince1970: user.joinedOn)
+                            .formatted(date: .abbreviated, time: .shortened)
+                        )
+                    }
+                    
+                    TLButton(title: "Log Out", color: .red) {
+                        viewModel.logOut()
+                    }
+                    .padding()
+                    
+                    Spacer()
+                } else {
+                    Text("Loading user data...")
+                }
             }
             .navigationTitle("Profile")
+        }
+        .onAppear {
+            viewModel.fetchUser()
         }
     }
 }

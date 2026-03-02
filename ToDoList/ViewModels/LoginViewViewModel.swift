@@ -23,7 +23,11 @@ class LoginViewViewModel: ObservableObject {
             return
         }
         
-        Auth.auth().signIn(withEmail: email, password: password )
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let errorMessage = error?.localizedDescription {
+                self.errorMessage = errorMessage
+            }
+        }   
     }
     
     private func validate() -> Bool {
